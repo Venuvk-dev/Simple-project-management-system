@@ -1,14 +1,15 @@
 const express = require ("express") ;
 require('dotenv').config();
-// Using Node.js `require()`
-const mongoose = require('mongoose');
-
+const mongoose = require('mongoose');// Using Node.js `require()`
+const taskRoutes=require("./Routes/taskRoutes"); //importing taskroutes
 const app =express();
 
 app.use((req,res,next)=>{
-    console.log("Path is " +req.path + "method is " +req.method);
+    console.log("Path is " +req.path + ", method is " +req.method);
     next();
 });
+
+app.use(express.json());  //it allows the server to get the response as json format
 
 app.get("/",(req,res)=>{
     res.send("Hello Venu , welcome to express js ")
@@ -23,5 +24,5 @@ mongoose
     })
     .catch((error)=>console.log(error));
 
-
+app.use("/api/tasks",taskRoutes);
 
